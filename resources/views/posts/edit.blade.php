@@ -4,12 +4,13 @@
     <div class="container mt-4">
         <div class="border p-4">
         <h1 class="h5 mb-4">
-            投稿の新規作成
+            投稿の編集
         </h1>
         
-        <form method="POST" action="{{ route('posts.store') }}">
+        <form method="POST" action="{{ route('posts.update',['post'=>$post]) }}">
             
             {{csrf_field()}}
+            {{ method_field('PUT') }}
             
             <fielset class="mb-4">
                 <div class="form-group">
@@ -20,12 +21,9 @@
                         type="title"
                         name="title"
                         class="form-control"
-                        value="{{old('title')}}"
+                        value="{{ $post->title }}"
                         type="text"
                         >
-                        <div class="text-danger">
-                            {{$errors->first('title')}}
-                        </div>
                 </div>
                 <div>
                     <label for="body">
@@ -37,19 +35,15 @@
                         name="body"
                         rows="4"
                         class="form-control"
-                    >{{old('body')}}</textarea>
-                        <div class="text-danger">
-                            {{$errors->first('body')}}
-                        </div>
-
+                    >{{$post->body}}</textarea>
                         
                 </div>
                 <div class="mt-5">
-                    <a class="btn btn-secondary" href="{{route('top')}}">
+                    <a class="btn btn-secondary" href="{{ route('posts.show',['post'=>$post]) }}">
                         キャンセル
                     </a>
                     <button class="btn btn-primary" type="submit">
-                        投稿する
+                        更新する
                     </button>
                 </div>
 
